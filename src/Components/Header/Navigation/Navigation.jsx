@@ -3,6 +3,8 @@ import { Category } from "./Category/Category";
 import { Gender } from "./Gender/Gender";
 
 export const Navigation = ({ list }) => {
+
+    
     return (
         <nav>
             <Container>

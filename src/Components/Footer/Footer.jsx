@@ -19,12 +19,12 @@ export const Footer = ({ list }) => {
                             {list.map(item => (
                                 <li key={item.link} className={styles.categoryItem}>
                                     <h3 className={styles.categorySubtitle}>
-                                        <NavLink state={item.link} to={item.link} className={styles.link}>{item.title}</NavLink>
+                                        <NavLink to={item.link} className={styles.link}>{item.title}</NavLink>
                                     </h3>
                                     <ul className={styles.categorySublist}>
                                         {item.categories.map(category => (
                                             <li key={category.link}>
-                                                <NavLink state={item.link} to={`${item.link}/${category.link}`} className={styles.link}>
+                                                <NavLink to={`${item.link}/${category.link}`} className={styles.link}>
                                                     {category.title}
                                                 </NavLink>
                                             </li>

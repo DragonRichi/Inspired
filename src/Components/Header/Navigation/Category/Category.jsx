@@ -5,21 +5,19 @@ import classNames from "classnames"
 export const Category = ({ list }) => {
 
     const location = useLocation()
+    const gender = location.pathname.split("/")[1] || "women"
+
+    const categoriesList = list.find(item => item.link === gender)
 
     return (
-        <div>
-            <ul className={styles.category}>
-                {list.map((item) => (
-                    item.categories.map((category) => (
-                        <li key={category.link} >
-
-                            <NavLink state={item.link} to={`${item.link}/${category.link}`} className={styles.link}>
-                                {category.title}
-                            </NavLink>
-                        </li>
-                    ))
-                ))}
-            </ul>
-        </div >
+        <ul className={styles.category}>
+            {categoriesList.categories.map((item) => (
+                <li key={item.link} className={styles.item}>
+                    <NavLink to={`${gender}/${item.link}`} className={({ isActive }) => classNames(styles.link, isActive && styles.linkActive)}>
+                        {item.title}
+                    </NavLink>
+                </li>
+            ))}
+        </ul>
     )
 }
