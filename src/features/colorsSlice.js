@@ -6,7 +6,6 @@ export const fetchColors = createAsyncThunk(
     async () => {
         const response = await fetch(COLORS_URL)
         const data = await response.json()
-        console.log(data)
         return data;
     }
 )
@@ -16,7 +15,7 @@ const colorsSlice = createSlice({
     name: "colors",
     initialState: {
         status: "idle",
-        colorsList: {},
+        colorsList: [],
         error: null
     },
     extraReducers: (builder) => {

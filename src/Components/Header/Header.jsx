@@ -1,11 +1,11 @@
 import { Navigation } from "./Navigation/Navigation";
 import { Top } from "./Top/Top";
-
-export const Header = ({list}) =>
+import styles from './Header.module.scss'
+export const Header = () =>
 (
-    <header>
+    <header className={styles.header}>
         <Top />
-        <Navigation list={list}/>
+        <Navigation />
     </header>
 )
 
