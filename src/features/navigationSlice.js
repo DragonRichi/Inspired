@@ -15,7 +15,7 @@ const navigationSlice = createSlice({
     initialState: {
         activeGender: "women",
         status: "idle",
-         : {},
+        categories: {},
         genderList: [],
         error: null
     },

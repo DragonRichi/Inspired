@@ -5,10 +5,13 @@ import styles from './Footer.module.scss'
 import Contacts from "./Contacts/Contacts";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 
-export const Footer = ({ list }) => {
+export const Footer = () => {
+
+    const { categories, activeGender, genderList } = useSelector(state => state.navigation)
     return (
         <footer>
             <Container>
@@ -16,15 +19,15 @@ export const Footer = ({ list }) => {
                     <div className={styles.category}>
                         <h2 className={classNames(styles.title, styles.categoryTitle)}>Каталог</h2>
                         <ul className={styles.categoryList}>
-                            {list.map(item => (
-                                <li key={item.link} className={styles.categoryItem}>
+                            {genderList?.map(item => (
+                                <li key={categories[item].title} className={styles.categoryItem}>
                                     <h3 className={styles.categorySubtitle}>
-                                        <NavLink to={item.link} className={styles.link}>{item.title}</NavLink>
+                                        <NavLink to={activeGender} className={styles.link}>{categories[item].title}</NavLink>
                                     </h3>
                                     <ul className={styles.categorySublist}>
-                                        {item.categories.map(category => (
-                                            <li key={category.link}>
-                                                <NavLink to={`${item.link}/${category.link}`} className={styles.link}>
+                                        {categories[item]?.list?.map(category => (
+                                            <li key={category.slug}>
+                                                <NavLink to={`${activeGender}/${category.slug}`} className={styles.link}>
                                                     {category.title}
                                                 </NavLink>
                                             </li>
@@ -66,6 +69,7 @@ export const Footer = ({ list }) => {
                     </div>
                 </div>
             </Container>
-        </footer>
+        </footer >
     );
 }
+
