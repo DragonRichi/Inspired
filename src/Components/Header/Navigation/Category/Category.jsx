@@ -5,12 +5,12 @@ import { useSelector } from "react-redux"
 
 export const Category = () => {
 
-    const { activeGender, categories, genderList } = useSelector(state => state.navigation)
+    const { activeGender, categories } = useSelector(state => state.navigation)
     return (
         <ul className={styles.category}>
             {categories[activeGender]?.list?.map((item) => (
                 <li key={item.slug} className={styles.item}>
-                    <NavLink to={`${activeGender}/${item.slug}`} className={({ isActive }) => classNames(styles.link, isActive && styles.linkActive)}>
+                    <NavLink to={`/catalog/${activeGender}/${item.slug}`} className={({ isActive }) => classNames(styles.link, isActive && styles.linkActive)}>
                         {item.title}
                     </NavLink>
                 </li>
