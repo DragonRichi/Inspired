@@ -5,8 +5,11 @@ import { fetchCategory, fetchGender } from '../../features/goodsSlice';
 import { setActiveGender } from '../../features/navigationSlice';
 import { Goods } from '../Goods/Goods';
 import { Banner } from '../Banner/Banner';
+// import { usePageFromSearchParams } from '../../hooks/usePageFromSearchParams';
 export const MainPage = () => {
     const dispatch = useDispatch()
+    // const page = usePageFromSearchParams(dispatch)
+
     const { activeGender, categories, genderList } = useSelector(state => state.navigation)
     const { gender, category } = useParams()
 

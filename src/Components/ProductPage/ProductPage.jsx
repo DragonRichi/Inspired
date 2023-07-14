@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Container } from '../Layout/Container/Container';
-import styles from './ProductPage.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../../features/productSlice';
 import { useParams } from 'react-router-dom';
 import { API_URL } from '../../const';
-import classNames from 'classnames';
 import { ColorList } from '../ColorList/ColorList';
-import { ReactComponent as Like } from '../../assets/like.svg';
 import { Count } from '../Count/Count';
 import { ProductSize } from '../ProductSize/ProductSize';
 import { Goods } from '../Goods/Goods';
-import { fetchCategory, fetchGender } from '../../features/goodsSlice';
+import { fetchCategory } from '../../features/goodsSlice';
+import { BtnLike } from '../BtnLike/BtnLike';
+
+import classNames from 'classnames';
+import styles from './ProductPage.module.scss'
+
 export const ProductPage = () => {
     const { id } = useParams()
     const { product } = useSelector(state => state.product)
@@ -73,7 +75,7 @@ export const ProductPage = () => {
                         <div className={styles.control}>
                             <Count className={styles.count} count={count} handleDecrement={handleDecrement} handleIncrement={handleIncrement} />
                             <button className={styles.addCart} type='submit'>В корзину</button>
-                            <button className={styles.favorite} aria-label='Добавить в избранное' type='button'><Like /></button>
+                            <button className={styles.favorite} aria-label='Добавить в избранное' type='button'><BtnLike id={id} /></button>
                         </div>
                     </form>
                 </Container>

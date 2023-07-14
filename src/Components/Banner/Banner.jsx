@@ -17,16 +17,12 @@ export const Banner = ({ data }) => {
         if (isMobile) {
             setImage(data?.bg.mobile)
             console.log(data?.bg.mobile)
-            console.log('Мобильное разрешение');
         } else if (isTablet) {
             setImage(data?.bg.tablet)
-            console.log('Разрешение планшета');
         } else if (isLaptop) {
             setImage(data?.bg.laptop)
-            console.log('Разрешение ноутбука');
         } else {
             setImage(data?.bg.desktop)
-            console.log('Десктопное разрешение');
         }
     }, [isMobile, isTablet, isLaptop, data?.bg])
 
