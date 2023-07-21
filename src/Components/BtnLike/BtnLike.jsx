@@ -1,4 +1,4 @@
-    import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as LikeSVG } from "../../assets/like.svg"
 import styles from './BtnLike.module.scss'
 import { addToFavorite, removeFromFavorite } from "../../features/favoritesSlice";

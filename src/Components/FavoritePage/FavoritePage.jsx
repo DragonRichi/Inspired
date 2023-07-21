@@ -3,13 +3,13 @@ import { Goods } from "../Goods/Goods";
 import { useEffect } from "react";
 import { fetchCategory } from "../../features/goodsSlice";
 import { usePageFromSearchParams } from "../../hooks/usePageFromSearchParams";
+import styles from './FavoritePage.module.scss'
 
 export const FavoritePage = () => {
 
     const dispatch = useDispatch()
 
     const favorites = useSelector(state => state.favorites)
-    console.log(favorites)
     const page = usePageFromSearchParams(dispatch)
 
     useEffect(() => {
@@ -18,11 +18,11 @@ export const FavoritePage = () => {
             if (page) {
                 param.page = page
             }
-            console.log(param)
             dispatch(fetchCategory(param))
         }
     }, [dispatch, page, favorites])
     return (
-        <Goods title="Избранное" />
+        favorites.length ?
+            <Goods title="Избранное" /> : <h3 className={styles.empty}>Вы ничего не добавили в избранное</h3>
     );
 }

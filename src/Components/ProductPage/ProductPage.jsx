@@ -13,13 +13,17 @@ import { BtnLike } from '../BtnLike/BtnLike';
 
 import classNames from 'classnames';
 import styles from './ProductPage.module.scss'
+import { addToCart } from '../../features/cartSlice';
 
 export const ProductPage = () => {
     const { id } = useParams()
-    const { product } = useSelector(state => state.product)
-    const { gender, category } = product
-
     const dispatch = useDispatch()
+
+    const { product } = useSelector(state => state.product)
+    const { colorsList } = useSelector(state => state.colors)
+
+    const { gender, category, colors } = product
+
 
     const [selectedColor, setSelectedColor] = useState("")
     const [selectedSize, setSelectedSize] = useState("")
@@ -42,7 +46,7 @@ export const ProductPage = () => {
         }
     }
     useEffect(() => {
-        // dispatch(fetchGender(gender))
+        // dispatch(fetchGender(gender)) 
         dispatch(fetchCategory({ category, gender, count: 4, top: true, exclude: id }))
     }, [gender, category, id, dispatch])
 
@@ -50,13 +54,28 @@ export const ProductPage = () => {
         dispatch(fetchProduct(id))
     }, [dispatch, id])
 
+    useEffect(() => {
+        if (colorsList?.length && colors?.length) {
+            setSelectedColor(colorsList.find((color) => color.id === colors[0]).title)
+        }
+    }, [colorsList, colors])
 
     return (
         <>
             <section className={styles.card}>
                 <Container className={styles.container}>
                     <img src={`${API_URL}/${product.pic}`} alt={product.title} className={styles.image} />
-                    <form className={styles.content}>
+                    <form className={styles.content} onSubmit={e => {
+                        e.preventDefault();
+                        if (selectedSize === "") {
+                            alert("Выбери ебаный в рот размер!")
+                            return;
+                        }
+                        dispatch(addToCart({
+                            id, color: selectedColor, size: selectedSize, count
+                        }))
+
+                    }}>
                         <h2 className={styles.title}>{product.title}</h2>
                         <p className={styles.price}>руб {product.price}</p>
                         <div className={styles.vendorCode}>
@@ -65,7 +84,7 @@ export const ProductPage = () => {
                         </div>
                         <div className={styles.color}>
                             <p className={classNames(styles.subtitle, styles.colorTitle)}>Цвет</p>
-                            <ColorList colors={product.colors} selectedColor={selectedColor} handleColorChange={handleColorChange} />
+                            <ColorList colors={colors} selectedColor={selectedColor} handleColorChange={handleColorChange} />
                         </div>
                         <ProductSize id={product.id} size={product.size} handleSizeChange={handleSizeChange} selectedSize={selectedSize} />
                         <div className={styles.description}>
@@ -75,7 +94,7 @@ export const ProductPage = () => {
                         <div className={styles.control}>
                             <Count className={styles.count} count={count} handleDecrement={handleDecrement} handleIncrement={handleIncrement} />
                             <button className={styles.addCart} type='submit'>В корзину</button>
-                            <button className={styles.favorite} aria-label='Добавить в избранное' type='button'><BtnLike id={id} /></button>
+                            <BtnLike id={id} className="favorite" />
                         </div>
                     </form>
                 </Container>
