@@ -2,8 +2,8 @@ import { useSelector } from 'react-redux';
 import { Container } from '../Layout/Container/Container';
 import { Product } from '../Product/Product';
 import { Pagination } from '../Pagination/Pagination';
-import styles from './Goods.module.scss'
 import { Preloader } from '../Preloader/Preloader';
+import styles from './Goods.module.scss'
 
 export const Goods = ({ title }) => {
     const { goodsList, status, totalCount } = useSelector(state => state.goods)
@@ -15,8 +15,8 @@ export const Goods = ({ title }) => {
                     {title ?? "Новинки"}
                     {totalCount && totalCount > 0 ? <sup>&nbsp;({totalCount})</sup> : ""}
                 </h2>
-                {status === "loading" ? <Preloader /> :
-                    <>
+                {status === "loading" ? (<Preloader />) :
+                    (<>
                         <ul className={styles.list}>
                             {goodsList?.map(item => (
                                 <li key={item.id}>
@@ -25,7 +25,7 @@ export const Goods = ({ title }) => {
                             ))}
                         </ul>
                         <Pagination />
-                    </>}
+                    </>)}
             </Container>
         </section>
     );

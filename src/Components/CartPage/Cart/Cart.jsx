@@ -17,7 +17,7 @@ export const Cart = ({ goodsList, cartItems }) => {
             <Container>
                 <h2 className={styles.title}>Корзина</h2>
                 {
-                    goodsList.length ?
+                    cartItems.length ?
                         <ul className={styles.list}>
                             {cartItems.map(item => (
                                 <li key={`${item.id}-${item.color}-${item.size}`} className={styles.item}>
